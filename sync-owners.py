@@ -8,21 +8,17 @@ MAINTAINERS_FILE = SCRIPT_DIR / "maintainers.yaml"
 GENERATED_DIR = SCRIPT_DIR / "generated"
 
 
-def gen_owners(entry):
+ROLE_MAP = {"project-maintainers": "approvers", "reviewers": "reviewers"}
+
+
+def gen_owners(teams):
     lines = []
-    teams = {t["name"]: t.get("members", []) for t in entry.get("teams", [])}
-
-    approvers = teams.get("project-maintainers", [])
-    reviewers = teams.get("reviewers", [])
-
-    if approvers:
-        lines.append("approvers:")
-        for a in approvers:
-            lines.append(f"  - {a}")
-    if reviewers:
-        lines.append("reviewers:")
-        for r in reviewers:
-            lines.append(f"  - {r}")
+    for team_name, role_name in ROLE_MAP.items():
+        members = teams.get(team_name, [])
+        if members:
+            lines.append(f"{role_name}:")
+            for m in members:
+                lines.append(f"  - {m}")
     return "\n".join(lines) + "\n"
 
 
@@ -34,11 +30,14 @@ def main():
 
     for entry in data.get("maintainers", []):
         repo = entry["project_id"]
+        teams = {t["name"]: t.get("members", []) for t in entry.get("teams", [])}
+
         repo_dir = GENERATED_DIR / repo
         repo_dir.mkdir(exist_ok=True)
-        owners_file = repo_dir / "OWNERS"
-        owners_file.write_text(gen_owners(entry))
-        print(f"  {repo}: maintainers={len(entry['teams'][0].get('members',[]))}, reviewers={len(entry['teams'][1].get('members',[])) if len(entry['teams'])>1 else 0}")
+        (repo_dir / "OWNERS").write_text(gen_owners(teams))
+
+        counts = {role: len(teams.get(name, [])) for name, role in ROLE_MAP.items()}
+        print(f"  {repo}: " + ", ".join(f"{r}={c}" for r, c in counts.items()))
 
 
 if __name__ == "__main__":
