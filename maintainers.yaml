@@ -1,17 +1,142 @@
-# Maintainer roster for hami
+# Maintainer roster for Project-HAMi
 # Documentation: https://github.com/cncf/automation/tree/main/utilities/dot-project
-
+# Each project_id maps to a repo; per-repo OWNERS files are generated from this file.
 
 maintainers:
-  - project_id: "hami"
+  - project_id: "HAMi"
     org: "Project-HAMi"
     teams:
       - name: "project-maintainers"
         members:
           - archlitchi
-          - nimbus318
-          - shouren
+          - DSFans2014
+          - fouof
           - wawa0210
-          - william-wang
+          - shouren
       - name: "reviewers"
-        members: []
+        members:
+          - archlitchi
+          - chaunceyjiang
+          - DSFans2014
+          - fouof
+          - lengrongfu
+          - mesutoezdil
+          - ouyangluwei163
+          - wawa0210
+
+  - project_id: "HAMi-core"
+    org: "Project-HAMi"
+    teams:
+      - name: "project-maintainers"
+        members:
+          - archlitchi
+      - name: "reviewers"
+        members:
+          - archlitchi
+          - chaunceyjiang
+
+  - project_id: "volcano-vgpu-device-plugin"
+    org: "Project-HAMi"
+    teams:
+      - name: "project-maintainers"
+        members:
+          - archlitchi
+      - name: "reviewers"
+        members:
+          - archlitchi
+          - SataQiu
+          - sailorvii
+
+  - project_id: "ascend-device-plugin"
+    org: "Project-HAMi"
+    teams:
+      - name: "project-maintainers"
+        members:
+          - archlitchi
+      - name: "reviewers"
+        members:
+          - archlitchi
+          - DSFans2014
+
+  - project_id: "k8s-dra-driver"
+    org: "Project-HAMi"
+    teams:
+      - name: "project-maintainers"
+        members:
+          - archlitchi
+          - shouren
+
+  - project_id: "HAMi-DRA"
+    org: "Project-HAMi"
+    teams:
+      - name: "project-maintainers"
+        members:
+          - archlitchi
+          - fouof
+          - calvin0327
+
+  - project_id: "KAI-resource-isolator"
+    org: "Project-HAMi"
+    teams:
+      - name: "project-maintainers"
+        members:
+          - archlitchi
+      - name: "reviewers"
+        members:
+          - archlitchi
+
+  - project_id: "dcu-vgpu-device-plugin"
+    org: "Project-HAMi"
+    teams:
+      - name: "project-maintainers"
+        members:
+          - archlitchi
+
+  - project_id: "dcu-exporter"
+    org: "Project-HAMi"
+    teams:
+      - name: "project-maintainers"
+        members:
+          - archlitchi
+
+  - project_id: "dcu-dcgm"
+    org: "Project-HAMi"
+    teams:
+      - name: "project-maintainers"
+        members:
+          - archlitchi
+
+  - project_id: "HAMi-WebUI"
+    org: "Project-HAMi"
+    teams:
+      - name: "project-maintainers"
+        members:
+          - archlitchi
+
+  - project_id: "hami-vnpu-core"
+    org: "Project-HAMi"
+    teams:
+      - name: "project-maintainers"
+        members:
+          - archlitchi
+
+  - project_id: "biren-device-plugin"
+    org: "Project-HAMi"
+    teams:
+      - name: "project-maintainers"
+        members:
+          - archlitchi
+
+  - project_id: "mock-device-plugin"
+    org: "Project-HAMi"
+    teams:
+      - name: "project-maintainers"
+        members:
+          - archlitchi
+
+  - project_id: "ai-benchmark"
+    org: "Project-HAMi"
+    teams:
+      - name: "project-maintainers"
+        members:
+          - archlitchi

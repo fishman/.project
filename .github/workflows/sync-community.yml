@@ -1,0 +1,47 @@
+name: Sync Community Files
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'maintainers.yaml'
+      - 'sync-owners.py'
+      - 'LICENSE'
+      - 'CODE_OF_CONDUCT.md'
+      - 'CONTRIBUTING.md'
+      - 'SECURITY.md'
+  workflow_dispatch:
+
+jobs:
+  sync-static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: BetaHuhn/repo-file-sync-action@v1
+        with:
+          GH_PAT: ${{ secrets.ORG_PAT }}
+          CONFIG_PATH: .github/repo-file-sync.yml
+
+  sync-owners:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml
+      - run: python3 sync-owners.py
+      - name: Push OWNERS to repos
+        env:
+          GH_TOKEN: ${{ secrets.ORG_PAT }}
+        run: |
+          for dir in generated/*/; do
+            repo=$(basename "$dir")
+            echo "=== $repo ==="
+            gh api "repos/Project-HAMi/$repo/contents/OWNERS" \
+              -X PUT \
+              -f message="sync: update OWNERS from .project" \
+              -f content="$(base64 -w0 "$dir/OWNERS")" \
+              -f sha="$(gh api "repos/Project-HAMi/$repo/contents/OWNERS" --jq .sha 2>/dev/null || true)" \
+              -f branch=main 2>&1 || echo "  (check branch name)"
+          done

@@ -1,0 +1,30 @@
+# Static community files synced to all active repos.
+# OWNERS files are handled separately by the workflow (per-repo content).
+# https://github.com/BetaHuhn/repo-file-sync-action
+
+group:
+  - files:
+      - source: LICENSE
+        dest: LICENSE
+      - source: CODE_OF_CONDUCT.md
+        dest: CODE_OF_CONDUCT.md
+      - source: CONTRIBUTING.md
+        dest: CONTRIBUTING.md
+      - source: SECURITY.md
+        dest: SECURITY.md
+    repos:
+      - Project-HAMi/HAMi
+      - Project-HAMi/HAMi-core
+      - Project-HAMi/volcano-vgpu-device-plugin
+      - Project-HAMi/dcu-vgpu-device-plugin
+      - Project-HAMi/dcu-exporter
+      - Project-HAMi/dcu-dcgm
+      - Project-HAMi/ascend-device-plugin
+      - Project-HAMi/HAMi-WebUI
+      - Project-HAMi/k8s-dra-driver
+      - Project-HAMi/HAMi-DRA
+      - Project-HAMi/hami-vnpu-core
+      - Project-HAMi/biren-device-plugin
+      - Project-HAMi/mock-device-plugin
+      - Project-HAMi/ai-benchmark
+      - Project-HAMi/KAI-resource-isolator
