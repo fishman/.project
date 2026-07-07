@@ -12,9 +12,14 @@ on:
       - 'SECURITY.md'
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   sync-static:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: BetaHuhn/repo-file-sync-action@v1
@@ -24,6 +29,8 @@ jobs:
 
   sync-owners:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -37,11 +44,20 @@ jobs:
         run: |
           for dir in generated/*/; do
             repo=$(basename "$dir")
+            sha=$(gh api "repos/Project-HAMi/$repo/contents/OWNERS" --jq .sha 2>/dev/null) || true
             echo "=== $repo ==="
-            gh api "repos/Project-HAMi/$repo/contents/OWNERS" \
-              -X PUT \
-              -f message="sync: update OWNERS from .project" \
-              -f content="$(base64 -w0 "$dir/OWNERS")" \
-              -f sha="$(gh api "repos/Project-HAMi/$repo/contents/OWNERS" --jq .sha 2>/dev/null || true)" \
-              -f branch=main 2>&1 || echo "  (check branch name)"
+            if [ -n "$sha" ]; then
+              gh api "repos/Project-HAMi/$repo/contents/OWNERS" \
+                -X PUT \
+                -f message="sync: update OWNERS from .project" \
+                -f content="$(base64 -w0 "$dir/OWNERS")" \
+                -f sha="$sha" \
+                -f branch=main
+            else
+              gh api "repos/Project-HAMi/$repo/contents/OWNERS" \
+                -X PUT \
+                -f message="sync: create OWNERS from .project" \
+                -f content="$(base64 -w0 "$dir/OWNERS")" \
+                -f branch=main
+            fi
           done
