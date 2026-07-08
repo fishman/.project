@@ -7,7 +7,9 @@ name: "hami"
 description: "Heterogeneous AI Computing Virtualization Middleware"
 type: "project"
 project_lead: "archlitchi"
-cncf_slack_channel: "#C07T10BU4R2"
+slack_channels:
+  - name: "#hami-dev"
+    link: "https://cloud-native.slack.com/archives/C07T10BU4R2"
 
 maturity_log:
   - phase: "sandbox"
