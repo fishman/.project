@@ -35,14 +35,19 @@ def main():
         org = entry["org"]
         teams = {t["name"]: t.get("members", []) for t in entry.get("teams", [])}
 
+        counts = {role: len(teams.get(name, [])) for name, role in ROLE_MAP.items()}
+        owners = gen_owners(teams)
+
         repo_dir = GENERATED_DIR / repo
         repo_dir.mkdir(exist_ok=True)
-        (repo_dir / "OWNERS").write_text(gen_owners(teams))
+        if owners.strip():
+            (repo_dir / "OWNERS").write_text(owners)
+        else:
+            print(f"  {repo}: WARNING - no approvers or reviewers, skipping OWNERS")
         (repo_dir / "CONTRIBUTING.md").write_text(
             contributing_tmpl.replace("Project-HAMi/.project", f"{org}/{repo}")
         )
 
-        counts = {role: len(teams.get(name, [])) for name, role in ROLE_MAP.items()}
         print(f"  {repo}: " + ", ".join(f"{r}={c}" for r, c in counts.items()))
 
 
