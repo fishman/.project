@@ -8,8 +8,6 @@ group:
         dest: LICENSE
       - source: CODE_OF_CONDUCT.md
         dest: CODE_OF_CONDUCT.md
-      - source: CONTRIBUTING.md
-        dest: CONTRIBUTING.md
       - source: SECURITY.md
         dest: SECURITY.md
     repos:

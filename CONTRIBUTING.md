@@ -83,7 +83,7 @@ We will help you contribute in different areas such as filing issues, developing
 getting your work reviewed and merged.
 
 If you have questions about the development process,
-feel free to [file an issue](https://github.com/Project-HAMi/HAMi/issues/new/choose).
+feel free to [file an issue](https://github.com/Project-HAMi/.project/issues/new/choose).
 
 ## Find something to work on
 
@@ -95,9 +95,9 @@ Here's how you can get started.
 
 There are [multiple repositories](https://github.com/Project-HAMi/) within the HAMi organization.
 Each repository has beginner-friendly issues marked as "good first issues".
-For example, [Project-HAMi/HAMi](https://github.com/Project-HAMi/HAMi) has
-[help wanted](https://github.com/Project-HAMi/HAMi/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) and
-[good first issue](https://github.com/Project-HAMi/HAMi/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
+For example, [Project-HAMi/.project](https://github.com/Project-HAMi/.project) has
+[help wanted](https://github.com/Project-HAMi/.project/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) and
+[good first issue](https://github.com/Project-HAMi/.project/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
 labels for issues that should not require deep knowledge of the system.
 We can help new contributors who wish to work on such issues.
 
@@ -113,7 +113,7 @@ When you are willing to take on an issue, simply reply to the issue and a mainta
 While we encourage everyone to contribute code, we also appreciate when someone reports an issue.
 Issues should be filed under the appropriate HAMi sub-repository.
 
-*Example:* A HAMi issue should be opened in [Project-HAMi/HAMi](https://github.com/Project-HAMi/HAMi/issues).
+*Example:* A HAMi issue should be opened in [Project-HAMi/.project](https://github.com/Project-HAMi/.project/issues).
 
 Please follow the provided submission guidelines when opening an issue.
 
@@ -126,7 +126,7 @@ This is a rough outline of what a contributor's workflow looks like:
 - Create a topic branch from where you want to base the contribution (usually master)
 - Make commits of logical units
 - Push changes in your topic branch to your personal fork of the repository
-- Submit a pull request to [Project-HAMi/HAMi](https://github.com/Project-HAMi/HAMi)
+- Submit a pull request to [Project-HAMi/.project](https://github.com/Project-HAMi/.project)
 
 ## Creating Pull Requests
 

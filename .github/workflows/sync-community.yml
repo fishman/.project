@@ -1,15 +1,6 @@
 name: Sync Community Files
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'maintainers.yaml'
-      - 'sync-owners.py'
-      - 'LICENSE'
-      - 'CODE_OF_CONDUCT.md'
-      - 'CONTRIBUTING.md'
-      - 'SECURITY.md'
   workflow_dispatch:
 
 permissions:
@@ -27,7 +18,7 @@ jobs:
           GH_PAT: ${{ secrets.ORG_PAT }}
           CONFIG_PATH: .github/repo-file-sync.yml
 
-  sync-owners:
+  sync-generated:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -38,26 +29,28 @@ jobs:
           python-version: '3.12'
       - run: pip install pyyaml
       - run: python3 sync-owners.py
-      - name: Push OWNERS to repos
+      - name: Push OWNERS and CONTRIBUTING.md to repos
         env:
           GH_TOKEN: ${{ secrets.ORG_PAT }}
         run: |
           for dir in generated/*/; do
             repo=$(basename "$dir")
-            sha=$(gh api "repos/Project-HAMi/$repo/contents/OWNERS" --jq .sha 2>/dev/null) || true
-            echo "=== $repo ==="
-            if [ -n "$sha" ]; then
-              gh api "repos/Project-HAMi/$repo/contents/OWNERS" \
-                -X PUT \
-                -f message="sync: update OWNERS from .project" \
-                -f content="$(base64 -w0 "$dir/OWNERS")" \
-                -f sha="$sha" \
-                -f branch=main
-            else
-              gh api "repos/Project-HAMi/$repo/contents/OWNERS" \
-                -X PUT \
-                -f message="sync: create OWNERS from .project" \
-                -f content="$(base64 -w0 "$dir/OWNERS")" \
-                -f branch=main
-            fi
+            for file in OWNERS CONTRIBUTING.md; do
+              sha=$(gh api "repos/Project-HAMi/$repo/contents/$file" --jq .sha 2>/dev/null) || true
+              echo "=== $repo / $file ==="
+              if [ -n "$sha" ]; then
+                gh api "repos/Project-HAMi/$repo/contents/$file" \
+                  -X PUT \
+                  -f message="sync: update $file from .project" \
+                  -f content="$(base64 -w0 "$dir/$file")" \
+                  -f sha="$sha" \
+                  -f branch=main
+              else
+                gh api "repos/Project-HAMi/$repo/contents/$file" \
+                  -X PUT \
+                  -f message="sync: create $file from .project" \
+                  -f content="$(base64 -w0 "$dir/$file")" \
+                  -f branch=main
+              fi
+            done
           done
