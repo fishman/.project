@@ -12,9 +12,9 @@ slack_channels:
     link: "https://cloud-native.slack.com/archives/C07T10BU4R2"
 
 maturity_log:
-  - phase: "sandbox"
-    date: "2024-08-21T00:00:00Z"
-    issue: "https://github.com/cncf/sandbox/issues/132" # TODO: AUTO-DETECTED — please verify
+  - phase: "incubating"
+    date: "2026-07-03T00:00:00Z"
+    issue: "https://github.com/cncf/toc/issues/1775" # TODO: AUTO-DETECTED — please verify
 
 repositories:
   - "https://github.com/Project-HAMi/HAMi"
